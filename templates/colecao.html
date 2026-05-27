@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ titulo_colecao }} — Aura Rara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#ffffff; font-family:"Montserrat", sans-serif; color:#1a1a1a; padding-bottom: 60px; }
+    a { text-decoration:none; color:inherit; }
+    
+    header { background:#ffffff; padding:25px 40px; border-bottom: 1px solid #f2f2f2; text-align: center; }
+    .logo { font-size:28px; font-family:"Cormorant Garamond", serif; letter-spacing:6px; text-transform: uppercase; font-weight:700; margin-bottom: 10px; }
+    .btn-voltar-home { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #777; transition: color 0.3s; }
+    .btn-voltar-home:hover { color: #b8863d; }
+
+    .titulo-topo { font-family: "Cormorant Garamond", serif; text-align: center; font-size: 36px; margin: 50px 0 40px 0; text-transform: uppercase; letter-spacing: 2px; font-weight: 400; color: #1a1a1a; }
+    
+    /* VITRINE EM ESTILO EDITORIAL */
+    .grid-colecao { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; padding: 0 20px; }
+    
+    .item-colecao { display: flex; gap: 50px; align-items: center; background: #fafafa; padding: 30px; border-radius: 4px; border: 1px solid #f0f0f0; }
+    @media (max-width: 768px) { .item-colecao { flex-direction: column; text-align: center; gap: 25px; } }
+    
+    .item-img { width: 300px; height: 380px; background-size: cover; background-position: center; flex-shrink: 0; border-radius: 2px; }
+    @media (max-width: 768px) { .item-img { width: 100%; } }
+
+    .item-info { display: flex; flex-direction: column; gap: 15px; }
+    .item-nome { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 400; text-transform: uppercase; }
+    .item-preco { font-size: 16px; font-weight: 600; color: #b8863d; }
+    
+    .item-sazonalidade { font-size: 13px; color: #555; line-height: 1.8; font-weight: 300; background: #ffffff; padding: 15px; border-left: 3px solid #b8863d; }
+    
+    .btn-comprar { background: #1a1a1a; color: white; width: fit-content; padding: 12px 30px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: background 0.3s; display: inline-block; margin-top: 10px; }
+    .btn-comprar:hover { background: #b8863d; }
+    @media (max-width: 768px) { .btn-comprar { width: 100%; text-align: center; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><a href="/">AURA RARA</a></div>
+    <a href="/" class="btn-voltar-home">← Voltar para o Início</a>
+  </header>
+
+  <h1 class="titulo-topo">{{ titulo_colecao }}</h1>
+
+  <main class="grid-colecao">
+    {% for id, produto in produtos.items() %}
+    <div class="item-colecao">
+      <div class="item-img" style="background-image: url('{{ produto.imagem }}');"></div>
+      
+      <div class="item-info">
+        <h2 class="item-nome">{{ produto.nome }}</h2>
+        <div class="item-preco">R$ {{ "{:,.2f}".format(produto.preco).replace('.',',') }}</div>
+        
+        <!-- Bloco contando o segredo da peça com a estação -->
+        <p class="item-sazonalidade">
+          ✨ <strong>Por que combina com a estação?</strong><br>
+          {{ produto.descricao }}
+        </p>
+        
+        <a href="{{ url_for('adicionar_ao_carrinho', produto_id=id) }}" class="btn-comprar">Adicionar à Sacola</a>
+      </div>
+    </div>
+    {% endfor %}
+  </main>
+
+</body>
+</html>

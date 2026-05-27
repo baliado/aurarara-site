@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Rara — Alta Semijoaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CONFIGURAÇÕES GERAIS DE LUXO */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#ffffff; font-family:"Montserrat", sans-serif; color:#1a1a1a; -webkit-font-smoothing: antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { max-width: 100%; display: block; }
+    
+    /* FAIXA TOPO MARSALA (#600423) */
+    .barra-frete { background-color: #600423; color: #ffffff; text-align: center; padding: 10px 0; font-size: 11px; font-weight: 300; letter-spacing: 1px; }
+
+    /* HEADER FIXO COMPLETO */
+    header { background:#ffffff; position:sticky; top:0; z-index:998; padding: 15px 0 10px 0; border-bottom: 1px solid #eeeeee; }
+    .header-top { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 20px; }
+    .menu-toggle { font-size: 20px; cursor: pointer; color: #1a1a1a; }
+    .logo-box { text-align: center; }
+    .logo { font-size: 34px; font-family:"Cormorant Garamond", serif; color:#1a1a1a; font-weight: 400; letter-spacing: 12px; text-transform: uppercase; }
+    .header-icons { display: flex; justify-content: flex-end; gap: 20px; font-size: 18px; }
+
+    /* BUSCA E ASSINATURA DE MARCA */
+    .search-container { max-width: 1240px; margin: 12px auto 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+    .search-box { width: 85%; border: none; border-bottom: 1px solid #e0e0e0; padding: 6px 0; font-size: 11px; letter-spacing: 1px; outline: none; color: #666; }
+    .selo-life { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 22px; color: #1a1a1a; font-weight: 400; letter-spacing: 1px; }
+
+    /* TITULOS PADRÃO DAS SEÇÕES */
+    .titulo-secao { text-align: center; margin: 60px 0 35px 0; padding: 0 20px; }
+    .titulo-secao h2 { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
+    .titulo-secao p { font-size: 10px; color: #777; letter-spacing: 2px; text-transform: uppercase; margin-top: 6px; }
+
+    /* SEÇÃO 1: ESCOLHA POR CATEGORIAS */
+    .categorias-grade { display: flex; justify-content: center; gap: 20px; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+    .card-cat-link { flex: 1; text-align: center; }
+    .box-img-cat { width: 100%; height: 260px; background-color: #f7f7f7; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; }
+    .img-interna-cat { width: 100%; height: 100%; background-size: cover; background-repeat: no-repeat; background-position: center; transition: transform 0.4s; }
+    .card-cat-link:hover .img-interna-cat { transform: scale(1.03); }
+    .txt-cat-v { font-family: "Cormorant Garamond", serif; font-size: 18px; letter-spacing: 1.5px; color: #1a1a1a; margin-top: 15px; }
+
+    /* SEÇÃO 2: GRANDE BANNER DE CAMPANHA */
+    .banner-campanha-longo { max-width: 1240px; margin: 50px auto; height: 500px; background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1400'); background-size: cover; background-position: center; display: flex; align-items: flex-end; padding: 50px; }
+    .box-info-campanha { background: rgba(255,255,255,0.9); padding: 30px; max-width: 400px; }
+    .box-info-campanha h3 { font-family: "Cormorant Garamond", serif; font-size: 32px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; }
+    .box-info-campanha p { font-size: 11px; color: #555; margin: 10px 0 20px 0; line-height: 1.6; letter-spacing: 0.5px; }
+    .btn-campanha { display: inline-block; padding: 10px 25px; border: 1px solid #1a1a1a; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
+
+    /* SEÇÃO 3: VITRINE DE PRODUTOS */
+    .vitrine-horizontal { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 1240px; margin: 0 auto 60px auto; padding: 0 20px; }
+    .produto-card-v { background: #ffffff; display: flex; flex-direction: column; text-align: center; border: 1px solid #f2f2f2; padding: 20px; position: relative; }
+    .box-img-prod-v { width: 100%; height: 340px; display: flex; align-items: center; justify-content: center; background: #ffffff; }
+    .box-img-prod-v img { max-height: 100%; max-width: 100%; object-fit: contain; }
+    .prod-nome-v { font-size: 12px; color: #333; margin: 20px 0 8px 0; letter-spacing: 1px; font-weight: 300; text-transform: uppercase; min-height: 32px; }
+    .prod-preco-v { font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 5px; }
+    .prod-parcela-v { font-size: 11px; color: #777; letter-spacing: 0.5px; margin-bottom: 15px; }
+    .btn-sacola-v { background: #1a1a1a; color: #fff; padding: 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 400; border: none; cursor: pointer; }
+
+    /* SEÇÃO 4: PRODUTO EM DESTAQUE COM MENSAGEM */
+    .destaque-frase-container { max-width: 1240px; margin: 70px auto; text-align: center; padding: 0 20px; }
+    .box-botao-topo { margin-bottom: 30px; }
+    .btn-borda-fina { padding: 12px 40px; border: 1px solid #1a1a1a; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; display: inline-block; }
+    .img-central-foco { max-width: 650px; margin: 0 auto; background: #fdfdfd; padding: 20px; }
+    .frase-efeito-v { font-family: "Cormorant Garamond", serif; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-top: 35px; color: #1a1a1a; }
+    .subfrase-efeito-v { font-size: 11px; color: #666; margin: 8px 0 20px 0; letter-spacing: 1px; }
+    .link-sublinhado { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; border-bottom: 1px solid #1a1a1a; padding-bottom: 2px; }
+
+    /* SEÇÃO 5: MOSAICO DE COLEÇÕES */
+    .mosaico-colecoes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+    .card-mosaico { background: #f9f9f9; text-align: center; padding: 15px; display: flex; flex-direction: column; align-items: center; border: 1px solid #f4f4f4; text-decoration: none; color: inherit; }
+    .box-img-mosaico { width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; background: #fff; }
+    .box-img-mosaico img { max-height: 100%; object-fit: contain; }
+    .tag-novidade { font-size: 9px; color: #600423; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; font-weight: 500; }
+    .nome-colecao-m { font-family: "Cormorant Garamond", serif; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; color: #555; font-weight: bold; }
+    .btn-grade-completa { max-width: 1240px; margin: 30px auto 70px auto; padding: 0 20px; }
+    
+    /* BOTÃO AJUSTADO PARA COR MARSALA (#600423) */
+    .btn-marsala-largo { display: block; width: 100%; background: #600423; color: white; text-align: center; padding: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 400; transition: background 0.3s; }
+    .btn-marsala-largo:hover { background: #440218; }
+
+    /* SEÇÃO 6: VANTAGENS INSTITUCIONAIS */
+    .vantagens-container { max-width: 1240px; margin: 80px auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 0 20px; border-bottom: 1px solid #eeeeee; padding-bottom: 60px; }
+    .bloco-vantagem { text-align: center; }
+    .icone-v { font-size: 24px; margin-bottom: 12px; display: block; color: #333; }
+    .bloco-vantagem h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 400; margin-bottom: 6px; }
+    .bloco-vantagem p { font-size: 11px; color: #777; line-height: 1.5; padding: 0 10px; }
+
+    /* SEÇÃO 7: BUSCADOR DE LOJAS / CANAIS */
+    .buscador-lojas { max-width: 600px; margin: 0 auto 90px auto; text-align: center; padding: 0 20px; }
+    .select-loja { width: 100%; padding: 12px; border: 1px solid #cccccc; background: #fff; font-family: "Montserrat", sans-serif; font-size: 12px; letter-spacing: 1px; color: #555; margin-bottom: 15px; outline: none; -webkit-appearance: none; }
+    
+    /* BOTÃO BUSCAR AJUSTADO PARA MARSALA */
+    .btn-buscar-loja { display: block; width: 100%; background: #600423; color:#fff; padding: 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; border: none; cursor: pointer; }
+
+    /* SEÇÃO 8: NEWSLETTER */
+    .newsletter-box { background: #fafafa; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 40px 20px; text-align: center; }
+    .newsletter-box h3 { font-family: "Cormorant Garamond", serif; font-size: 20px; text-transform: uppercase; letter-spacing: 3px; font-weight: 400; }
+    .newsletter-box p { font-size: 11px; color: #666; letter-spacing: 1px; margin: 8px 0 25px 0; text-transform: uppercase; }
+    .form-news { max-width: 600px; margin: 0 auto; display: flex; gap: 10px; }
+    .input-news { flex: 1; padding: 12px; border: 1px solid #ccc; font-size: 12px; outline: none; }
+    .btn-news { background: #1a1a1a; color: white; border: none; padding: 0 30px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+
+    /* ACORDION FOOTER LINKS */
+    .footer-links-rows { max-width: 1240px; margin: 40px auto 0 auto; padding: 0 20px; }
+    .linha-acordion { border-bottom: 1px solid #eeeeee; padding: 15px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #333; cursor: pointer; }
+    .linha-acordion a { display: block; width: 100%; }
+    .linha-acordion span { color: #999; font-size: 14px; }
+
+    /* REDES E ASSINATURA FINAL */
+    .redes-sociais-v { display: flex; justify-content: center; gap: 15px; margin: 40px 0; font-size: 14px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+    .selo-seguranca { text-align: center; margin: 30px 0; font-size: 11px; color: #777; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
+    .dados-finais-empresa { text-align: center; font-size: 9px; color: #aaa; line-height: 1.8; max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px; }
+
+    /* MODAL DE ADICIONADO À SACOLA VIVARA STYLE */
+    .modal-sacola { position: fixed; top: 90px; right: 20px; background: white; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); padding: 20px; z-index: 1000; border: 1px solid #eee; display: none; }
+    .modal-sacola::before { content: ''; position: absolute; top: -10px; right: 25px; border-width: 0 10px 10px 10px; border-style: solid; border-color: transparent transparent white transparent; filter: drop-shadow(0 -2px 1px rgba(0,0,0,0.05)); }
+    .modal-titulo { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
+    .modal-corpo { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+    .modal-img { width: 60px; height: 60px; object-fit: contain; background: #f9f9f9; }
+    .modal-info { font-size: 11px; color: #333; line-height: 1.4; }
+    .modal-info strong { display: block; text-transform: uppercase; margin-bottom: 4px; }
+    
+    /* BOTÃO INTERNO DO MODAL EM MARSALA */
+    .btn-ir-sacola { display: block; background: #600423; color: white; text-align: center; padding: 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: background 0.3s; }
+    .btn-ir-sacola:hover { background: #440218; }
+
+    @media (max-width: 768px) {
+      .categorias-grade, .vitrine-horizontal, .mosaico-colecoes, .vantagens-container { grid-template-columns: 1fr; flex-direction: column; }
+      .form-news { flex-direction: column; }
+      .btn-news { padding: 12px 0; }
+      .modal-sacola { top: auto; bottom: 20px; right: 20px; left: 20px; width: auto; }
+      .modal-sacola::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="barra-frete">Frete cortesia em todas as compras acima de R$199,90. Aproveite.</div>
+
+  <header>
+    <div class="header-top">
+      <div class="menu-toggle">☰</div>
+      <div class="logo-box">
+        <h1 class="logo"><a href="{{ url_for('index') }}">Aura Rara</a></h1>
+      </div>
+      <div class="header-icons">
+        <a href="{{ url_for('carrinho') }}">🛍️</a>
+      </div>
+    </div>
+    <div class="search-container">
+      <input type="text" class="search-box" placeholder="Buscar por nome ou código">
+      <span class="selo-life">Aura</span>
+    </div>
+  </header>
+
+  <div id="modalSacola" class="modal-sacola">
+    <div class="modal-titulo">✔️ Adicionado à Sacola</div>
+    <div class="modal-corpo">
+      <img id="modalProdImg" src="" class="modal-img" alt="Produto">
+      <div class="modal-info">
+        <strong id="modalProdNome">Nome da Semijoia</strong>
+        <span>1 UN.</span>
+      </div>
+    </div>
+    <a href="{{ url_for('carrinho') }}" class="btn-ir-sacola">Ir para minha sacola</a>
+  </div>
+
+  <section class="titulo-secao">
+    <h2>Sua aura, sua assinatura</h2>
+    <p>Escolha por categorias</p>
+  </section>
+
+  <section class="categorias-grade">
+    <a href="{{ url_for('categoria', nome_categoria='aneis') }}" class="card-cat-link">
+      <div class="box-img-cat">
+        <div class="img-interna-cat" style="background-image: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400');"></div>
+      </div>
+      <div class="txt-cat-v">Anéis e Alianças</div>
+    </a>
+    <a href="{{ url_for('categoria', nome_categoria='brincos') }}" class="card-cat-link">
+      <div class="box-img-cat">
+        <div class="img-interna-cat" style="background-image: url('https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=400');"></div>
+      </div>
+      <div class="txt-cat-v">Brincos</div>
+    </a>
+    <a href="{{ url_for('categoria', nome_categoria='colares') }}" class="card-cat-link">
+      <div class="box-img-cat">
+        <div class="img-interna-cat" style="background-image: url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=400');"></div>
+      </div>
+      <div class="txt-cat-v">Colares</div>
+    </a>
+  </section>
+
+  <section class="banner-campanha-longo">
+    <div class="box-info-campanha">
+      <h3>Aura para Sempre</h3>
+      <p>Peças exclusivas criadas para eternizar momentos e refletir a sua essência mais pura.</p>
+      <a href="#vitrine" class="btn-campanha">Explorar</a>
+    </div>
+  </section>
+
+  <section class="titulo-secao" id="vitrine">
+    <h2>Nossos Produtos</h2>
+    <p>Inovação que encanta</p>
+  </section>
+
+  <section class="vitrine-horizontal">
+    {% if produtos %}
+      {% for id, produto in produtos.items() %}
+      <div class="produto-card-v">
+        <div class="box-img-prod-v">
+          <img src="{{ produto.imagem }}" alt="{{ produto.nome }}">
+        </div>
+        <div class="prod-nome-v">{{ produto.nome }}</div>
+        <div class="prod-preco-v">R$ {{ "{:,.2f}".format(produto.preco).replace('.',',') }}</div>
+        <div class="prod-parcela-v">10x sem juros de R$ {{ "{:,.2f}".format(produto.preco / 10).replace('.',',') }}</div>
+        <button onclick="adicionarComEfeito('{{ produto.nome }}', '{{ produto.imagem }}', '/adicionar/{{ id }}')" class="btn-sacola-v">Adicionar à Sacola</button>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="produto-card-v">
+        <div class="box-img-prod-v"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400" alt=""></div>
+        <div class="prod-nome-v">Anel Solitário Classic Banhado a Ouro</div>
+        <div class="prod-preco-v">R$ 189,00</div>
+        <div class="prod-parcela-v">10x de R$ 18,90</div>
+        <button onclick="adicionarComEfeito('Anel Solitário Classic', 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400', '#')" class="btn-sacola-v">Adicionar à Sacola</button>
+      </div>
+      <div class="produto-card-v">
+        <div class="box-img-prod-v"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=400" alt=""></div>
+        <div class="prod-nome-v">Colar Ponto de Luz Aura Rara</div>
+        <div class="prod-preco-v">R$ 229,00</div>
+        <div class="prod-parcela-v">10x de R$ 22,90</div>
+        <button onclick="adicionarComEfeito('Colar Ponto de Luz', 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=400', '#')" class="btn-sacola-v">Adicionar à Sacola</button>
+      </div>
+    {% endif %}
+  </section>
+
+  <section class="destaque-frase-container">
+    <div class="box-botao-topo">
+      <a href="{{ url_for('categoria', nome_categoria='todos') }}" class="btn-borda-fina">Ver Todas</a>
+    </div>
+    <div class="img-central-foco">
+      <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=600" alt="Semijoia Destaque">
+    </div>
+    <div class="frase-efeito-v">Para Amar Hoje e Sempre</div>
+    <div class="subfrase-efeito-v">Pequenos gestos que marcam a jornada a dois.</div>
+    <a href="{{ url_for('colecao', nome_colecao='presentes') }}" class="link-sublinhado">Ver Presentes</a>
+  </section>
+
+  <section class="titulo-secao">
+    <h2>Nossas Coleções Exclusivas</h2>
+    <p>Conceito e Identidade Visual</p>
+  </section>
+
+  <section class="mosaico-colecoes">
+    <a href="{{ url_for('colecao', nome_colecao='al-mare') }}" class="card-mosaico">
+      <div class="box-img-mosaico"><img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=300" alt=""></div>
+      <span class="tag-novidade">Exclusivo (Item 1 de 8)</span>
+      <div class="nome-colecao-m">Coleção Al Mare</div>
+    </a>
+    <a href="{{ url_for('colecao', nome_colecao='amor-duo') }}" class="card-mosaico">
+      <div class="box-img-mosaico"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=300" alt=""></div>
+      <span class="tag-novidade">Exclusivo (Item 2 de 8)</span>
+      <div class="nome-colecao-m">Coleção Amor Duo</div>
+    </a>
+    <a href="{{ url_for('colecao', nome_colecao='soleil') }}" class="card-mosaico">
+      <div class="box-img-mosaico"><img src="https://images.unsplash.com/photo-1630019852942-f89202989a59?q=80&w=300" alt=""></div>
+      <span class="tag-novidade">Exclusivo (Item 3 de 8)</span>
+      <div class="nome-colecao-m">Coleção Soleil</div>
+    </a>
+    <a href="{{ url_for('colecao', nome_colecao='palace') }}" class="card-mosaico">
+      <div class="box-img-mosaico"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=300" alt=""></div>
+      <span class="tag-novidade">Exclusivo (Item 4 de 8)</span>
+      <div class="nome-colecao-m">Coleção Palace</div>
+    </a>
+  </section>
+
+  <div class="btn-grade-completa">
+    <a href="{{ url_for('colecao', nome_colecao='todas') }}" class="btn-marsala-largo">Conhecer Todas as Coleções</a>
+  </div>
+
+  <section class="titulo-secao">
+    <h2>A Experiência Aura Rara</h2>
+    <p>Conheça nossas vantagens</p>
+  </section>
+
+  <section class="vantagens-container">
+    <div class="bloco-vantagem">
+      <span class="icone-v">📱</span>
+      <h4>Consultoria Digital</h4>
+      <p>Nossas consultoras estão prontas para te atender via WhatsApp.</p>
+    </div>
+    <div class="bloco-vantagem">
+      <span class="icone-v">✨</span>
+      <h4>Qualidade Premium</h4>
+      <p>Peças com banho reforçado em ouro 18k e tecnologia antialérgica.</p>
+    </div>
+    <div class="bloco-vantagem">
+      <span class="icone-v">📦</span>
+      <h4>Rapidez na Entrega</h4>
+      <p>Sua caixinha embalada com todo o carinho e envio expresso.</p>
+    </div>
+    <div class="bloco-vantagem">
+      <span class="icone-v">🎁</span>
+      <h4>Garantia de Brilho</h4>
+      <p>Acompanha certificado de autenticidade e embalagem especial.</p>
+    </div>
+  </section>
+
+  <section class="titulo-secao">
+    <h2>Nossos Atendimentos</h2>
+    <p>Encontre os canais da Aura Rara</p>
+  </section>
+
+  <section class="buscador-lojas">
+    <select class="select-loja">
+      <option>Selecione seu Estado</option>
+      <option>São Paulo</option>
+      <option>Paraná</option>
+      <option>Rio de Janeiro</option>
+    </select>
+    <button class="btn-buscar-loja">Encontrar Canais</button>
+  </section>
+
+  <section class="newsletter-box">
+    <h3>Acompanhe nossas novidades</h3>
+    <p>Cadastre seu e-mail para receber informações exclusivas</p>
+    <form class="form-news" onsubmit="event.preventDefault();">
+      <input type="email" class="input-news" placeholder="E-MAIL">
+      <button class="btn-news">Cadastrar</button>
+    </form>
+  </section>
+
+  <section class="footer-links-rows">
+    <div class="linha-acordion"><a href="{{ url_for('colecao', nome_colecao='todas') }}">Coleções Aura Rara <span>+</span></a></div>
+    <div class="linha-acordion"><a href="{{ url_for('sobre') }}">A Empresa / Sobre Nós <span>+</span></a></div>
+    <div class="linha-acordion"><a href="{{ url_for('feedback') }}">Depoimentos e Feedback <span>+</span></a></div>
+    <div class="linha-acordion"><a href="{{ url_for('carrinho') }}">Minha Sacola de Compras <span>+</span></a></div>
+  </section>
+
+  <div class="redes-sociais-v">
+    <span>📸 Instagram</span>
+  </div>
+
+  <div class="selo-seguranca">🔒 Compra 100% Segura</div>
+  
+  <p class="dados-finais-empresa">
+    &copy; 2026 AURA RARA SEMIJOIAS - TODOS OS DIREITOS RESERVADOS.<br>
+    As imagens aqui veiculadas são de propriedade da marca. Preços e stocks sujeitos a alteração sem aviso prévio.<br>
+    Aura Rara Semijoias Ltda. CNPJ: 00.000.000/0001-00.
+  </p>
+
+  <script>
+    function adicionarComEfeito(nome, imagem, urlDestino) {
+      document.getElementById('modalProdNome').innerText = nome;
+      document.getElementById('modalProdImg').src = imagem;
+      
+      var modal = document.getElementById('modalSacola');
+      modal.style.display = 'block';
+      
+      if(urlDestino !== '#') {
+        fetch(urlDestino)
+          .then(response => {
+            console.log("Produto adicionado com sucesso!");
+          });
+      }
+
+      setTimeout(function() {
+        modal.style.display = 'none';
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>

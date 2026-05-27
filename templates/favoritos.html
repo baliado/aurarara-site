@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Favoritos — Aura Rara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2=family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#ffffff; font-family:"Montserrat", sans-serif; color:#1a1a1a; padding: 40px 20px; text-align: center; }
+    a { text-decoration:none; color:inherit; }
+
+    .titulo-favoritos { font-family: "Cormorant Garamond", serif; font-size: 32px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 40px; }
+    
+    .grid-favoritos { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+    .card-fav { display: flex; align-items: center; justify-content: space-between; border: 1px solid #eaeaea; padding: 15px 25px; border-radius: 4px; }
+    .info-fav { display: flex; align-items: center; gap: 15px; }
+    .img-fav { width: 50px; height: 60px; background-size: cover; background-position: center; border-radius: 2px; }
+    .nome-fav { font-size: 13px; font-weight: 500; text-transform: uppercase; }
+    
+    .btn-remover { font-size: 11px; color: #c13535; text-transform: uppercase; letter-spacing: 1px; }
+    .btn-remover:hover { text-decoration: underline; }
+    
+    .lista-vazia { color: #777; font-size: 14px; margin-top: 30px; }
+    .btn-voltar { display: inline-block; margin-top: 30px; background: #1a1a1a; color: white; padding: 12px 30px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+  </style>
+</head>
+<body>
+
+  <h1 class="titulo-favoritos">Seus Favoritos</h1>
+
+  <div class="grid-favoritos">
+    {% if favoritos %}
+      {% for item in favoritos %}
+        <div class="card-fav">
+          <div class="info-fav">
+            <div class="img-fav" style="background-image: url('{{ item.imagem }}');"></div>
+            <span class="nome-fav">{{ item.nome }}</span>
+          </div>
+          <a href="{{ url_for('favoritar_produto', produto_id=item.id) }}" class="btn-remover">Remover ✕</a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="lista-vazia">Nenhuma semijoaria salva em sua lista de desejos. ✨</p>
+    {% endif %}
+
+    <br>
+    <div>
+      <a href="{{ url_for('index') }}" class="btn-voltar">Explorar Coleções</a>
+    </div>
+  </div>
+
+</body>
+</html>

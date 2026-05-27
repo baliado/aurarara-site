@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sua Sacola — Aura Rara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #ffffff; font-family: "Montserrat", sans-serif; color: #1a1a1a; display: flex; flex-direction: column; min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+    
+    .barra-frete { background-color: #600423; color: #ffffff; text-align: center; padding: 10px 0; font-size: 11px; letter-spacing: 1px; }
+    
+    header { background: #ffffff; padding: 15px 0; border-bottom: 1px solid #eeeeee; text-align: center; }
+    .logo { font-size: 28px; font-family: "Cormorant Garamond", serif; letter-spacing: 8px; text-transform: uppercase; }
+    
+    main { flex: 1; max-width: 800px; width: 100%; margin: 40px auto; padding: 0 20px; }
+    
+    .titulo-sacola { font-family: "Cormorant Garamond", serif; font-size: 32px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; color: #600423; text-align: center; margin-bottom: 40px; }
+    
+    .carrinho-vazio { text-align: center; padding: 40px 0; }
+    .carrinho-vazio p { color: #777; font-size: 14px; margin-bottom: 20px; }
+    .btn-voltar { display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 30px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+
+    .item-carrinho { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding: 20px 0; gap: 20px; }
+    .item-info { display: flex; align-items: center; gap: 20px; }
+    .img-produto { width: 80px; height: 80px; object-fit: contain; background: #fdfdfd; border: 1px solid #f2f2f2; }
+    .detalhes-prod .nome { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; color: #333; }
+    .detalhes-prod .qtd { font-size: 12px; color: #777; }
+    .preco-item { font-size: 14px; font-weight: 500; color: #1a1a1a; white-space: nowrap; }
+
+    .resumo-carrinho { margin-top: 40px; background: #fafafa; padding: 30px; border: 1px solid #eee; }
+    .linha-resumo { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; }
+    .linha-resumo.total { border-top: 1px solid #ddd; padding-top: 15px; font-size: 18px; font-weight: 500; color: #600423; }
+    
+    .aviso-frete { font-size: 12px; color: #600423; margin-bottom: 20px; text-align: center; letter-spacing: 0.5px; background: #f5e6eb; padding: 8px; }
+    .aviso-frete.gratis { color: #2e7d32; background: #e8f5e9; }
+
+    .btn-finalizar-marsala { display: block; background-color: #600423; color: #ffffff; text-align: center; padding: 15px 30px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; border: none; cursor: pointer; width: 100%; transition: background 0.3s; margin-bottom: 10px; }
+    .btn-finalizar-marsala:hover { background-color: #450218; }
+    .btn-continuar-comprando { display: block; text-align: center; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #777; margin-top: 15px; text-decoration: underline; }
+
+    /* RODAPÉ PROFISSIONAL (FOOTER) */
+    footer { background: #fafafa; border-top: 1px solid #eeeeee; padding: 40px 20px; text-align: center; font-size: 12px; color: #555; letter-spacing: 1px; margin-top: auto; }
+    .footer-links { margin-bottom: 15px; display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; }
+    .footer-links a { transition: color 0.2s; }
+    .footer-links a:hover { color: #600423; }
+    .copyright { color: #999; font-size: 11px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="barra-frete">Frete cortesia em todas as compras acima de R$199,90.</div>
+
+  <header>
+    <h1 class="logo"><a href="{{ url_for('index') }}">Aura Rara</a></h1>
+  </header>
+
+  <main>
+    <h2 class="titulo-sacola">Sua Sacola</h2>
+
+    {% if carrinho %}
+      <div class="lista-itens">
+        {% for item in carrinho %}
+        <div class="item-carrinho">
+          <div class="item-info">
+            <img src="{{ item.imagem }}" alt="{{ item.nome }}" class="img-produto">
+            <div class="detalhes-prod">
+              <div class="nome">{{ item.nome }}</div>
+              <div class="qtd">Quantidade: {{ item.quantidade }}</div>
+            </div>
+          </div>
+          <div class="preco-item">R$ {{ "{:,.2f}".format(item.total).replace('.',',') }}</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="resumo-carrinho">
+        {% if frete_gratis %}
+          <div class="aviso-frete gratis">✨ Parabéns! Você garantiu **Frete Grátis** na sua compra.</div>
+        {% else %}
+          <div class="aviso-frete">Faltam apenas R$ {{ "{:,.2f}".format(falta_frete).replace('.',',') }} para você ganhar **Frete Grátis**!</div>
+        {% endif %}
+
+        <div class="linha-resumo">
+          <span>Subtotal dos produtos</span>
+          <span>R$ {{ "{:,.2f}".format(subtotal).replace('.',',') }}</span>
+        </div>
+        <div class="linha-resumo">
+          <span>Frete</span>
+          <span>{% if frete_gratis %}Grátis{% else %}A combinar{% endif %}</span>
+        </div>
+        <div class="linha-resumo total">
+          <span>Total estimado</span>
+          <span>R$ {{ "{:,.2f}".format(subtotal).replace('.',',') }}</span>
+        </div>
+
+        <a href="https://wa.me/5544988687852?text=Olá,%20Aura%20Rara!%20Gostaria%20de%20finalizar%20o%20meu%20pedido:%0A%0A{% for item in carrinho %}-%20{{ item.nome }}%20(Qtd:%20{{ item.quantidade }})%20-%20R$%20{{ "{:,.2f}".format(item.total).replace('.',',') }}%0A{% endfor %}%0A*Total%20do%20Pedido:*%20R$%20{{ "{:,.2f}".format(subtotal).replace('.',',') }}" 
+           target="_blank" 
+           class="btn-finalizar-marsala">
+           Finalizar Compra via WhatsApp
+        </a>
+
+        <a href="{{ url_for('index') }}" class="btn-continuar-comprando">Continuar Comprando</a>
+      </div>
+    {% else %}
+      <div class="carrinho-vazio">
+        <p>Sua sacola de compras está vazia no momento.</p>
+        <a href="{{ url_for('index') }}" class="btn-voltar">Explorar Joias</a>
+      </div>
+    {% endif %}
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="mailto:aura.raraacessorios@gmail.com">📩 aura.raraacessorios@gmail.com</a>
+      <a href="https://instagram.com/use.aurarara" target="_blank">📸 @use.aurarara</a>
+      <a href="https://wa.me/5544988687852" target="_blank">💬 WhatsApp: (44) 98868-7852</a>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
+    <div>Aura Rara Acessórios — Curadoria de Alta Semijoias & Detalhes Nobres</div>
+    <div class="copyright">&copy; 2026 Aura Rara. Todos os direitos reservados.</div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ produto.nome }} — Aura Rara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#ffffff; font-family:"Montserrat", sans-serif; color:#1a1a1a; -webkit-font-smoothing: antialiased; }
+    a { text-decoration:none; color:inherit; }
+
+    header { background:#ffffff; padding:20px 40px; border-bottom: 1px solid #eaeaea; text-align: center; }
+    .logo { font-size:32px; font-family:"Cormorant Garamond", serif; letter-spacing:6px; text-transform: uppercase; }
+    nav { margin-top: 15px; display:flex; gap:24px; justify-content: center; }
+    nav a { font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight: 500; }
+    nav a:hover { color:#b8863d; }
+
+    .produto-wrapper { max-width: 1000px; margin: 60px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 0 20px; }
+    @media (max-width: 768px) { .produto-wrapper { grid-template-columns: 1fr; gap: 30px; } }
+
+    .col-foto { display: flex; justify-content: center; }
+    .foto-principal { width: 100%; max-width: 450px; height: 550px; background-size: cover; background-position: center; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+
+    .col-info { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+    .nome-joia { font-family: "Cormorant Garamond", serif; font-size: 36px; font-weight: 400; text-transform: uppercase; letter-spacing: 2px; }
+    .preco-joia { font-size: 22px; font-weight: 600; color: #b8863d; }
+    .descricao-joia { font-size: 14px; color: #555; line-height: 1.8; font-weight: 300; margin: 10px 0; }
+    
+    .especificacoes { border-top: 1px solid #eaeaea; padding-top: 20px; margin-top: 10px; }
+    .especificacoes h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #1a1a1a; }
+    .especificacoes ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .especificacoes li { font-size: 13px; color: #666; display: flex; align-items: center; gap: 8px; }
+
+    .botoes-acoes { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .btn-comprar { background: #1a1a1a; color: white; text-align: center; padding: 16px; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; transition: background 0.3s; }
+    .btn-comprar:hover { background: #b8863d; }
+    .btn-fav-interna { background: transparent; border: 1px solid #1a1a1a; color: #1a1a1a; text-align: center; padding: 14px; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
+    .btn-fav-interna:hover { background: #f5f5f5; }
+    
+    .link-voltar { font-size: 12px; color: #777; margin-top: 20px; display: inline-block; }
+    .link-voltar:hover { color: #b8863d; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo"><a href="{{ url_for('index') }}">AURA RARA</a></div>
+    <nav>
+      <a href="{{ url_for('index') }}">← Voltar ao Início</a>
+      <a href="{{ url_for('favoritos') }}">❤️ Meus Favoritos</a>
+      <a href="{{ url_for('carrinho') }}">👜 Minha Sacola</a>
+    </nav>
+  </header>
+
+  <main class="produto-wrapper">
+    <!-- Imagem da Semijoaria -->
+    <div class="col-foto">
+      <div class="foto-principal" style="background-image: url('{{ produto.imagem }}');"></div>
+    </div>
+
+    <!-- Informações Comerciais -->
+    <div class="col-info">
+      <h1 class="nome-joia">{{ produto.nome }}</h1>
+      <div class="preco-joia">R$ {{ "{:,.2f}".format(produto.preco).replace('.',',') }}</div>
+      
+      <p class="descricao-joia">{{ produto.descricao }}</p>
+
+      <div class="especificacoes">
+        <h4>Detalhes da Peça</h4>
+        <ul>
+          {% for detalhe in produto.detalhes %}
+            <li>✨ {{ detalhe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="botoes-acoes">
+        <a href="{{ url_for('adicionar_ao_carrinho', produto_id=produto.id) }}" class="btn-comprar">Adicionar à Sacola</a>
+        <a href="{{ url_for('favoritar_produto', produto_id=produto.id) }}" class="btn-fav-interna">Adicionar aos Favoritos ❤️</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
